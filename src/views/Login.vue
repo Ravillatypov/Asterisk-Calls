@@ -9,7 +9,7 @@
 
 <script>
 // @ is an alias to /src
-import AuthApi from 'asterisk_service_api/dist/api/AuthApi'
+import AuthApi from '@/requests/api/AuthApi'
 
 const authApi = new AuthApi()
 
