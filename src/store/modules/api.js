@@ -8,6 +8,8 @@ import TagsApi from '@/requests/api/TagsApi'
 
 const client = new ApiClient()
 const refreshKey = 'refreshToken'
+const lrefToken = localStorage.getItem(refreshKey)
+const refToken = ['null', 'undefined'].includes(lrefToken) ? null : lrefToken
 
 export default {
   state: {
@@ -18,11 +20,7 @@ export default {
     callsApi: new CallApi(client),
     callRecordsApi: new CallRecordApi(client),
     permissionsApi: new PermissionsApi(client),
-    refreshToken: ['null', 'undefined'].includes(
-      localStorage.getItem(refreshKey)
-    )
-      ? null
-      : localStorage.getItem(refreshKey)
+    refreshToken: refToken
   },
   getters: {
     cleint: state => state.cleint,
@@ -37,6 +35,7 @@ export default {
   mutations: {
     _resetTokens (state, getters) {
       localStorage.setItem(refreshKey, null)
+      localStorage.setItem('UserID', null)
       getters.client.authentications.jwt.apiKey = null
       state.refreshToken = null
     },

@@ -1,5 +1,7 @@
+const uid = localStorage.getItem('UserID')
+
 const defaultUserInfo = {
-  id: null,
+  id: ['null', 'undefined'].includes(uid) ? null : uid,
   firstName: null,
   lastName: null,
   permissions: [],

@@ -89,6 +89,7 @@ export default {
   },
 
   mounted () {
+    this.refreshTokens()
     if (this.isAuthenticated) {
       if (this.nextUrl != null) {
         this.$router.push(this.nextUrl)
@@ -146,7 +147,7 @@ export default {
         )
       }
     },
-    ...mapActions(['setTokens'])
+    ...mapActions(['setTokens', 'refreshTokens'])
   }
 }
 </script>

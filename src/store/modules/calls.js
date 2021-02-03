@@ -26,12 +26,13 @@ export default {
     }
   },
   actions: {
-    getCalls ({ getters, commit }) {
+    getCalls ({ getters, commit, actions }) {
       const callsApi = getters.callsApi
       callsApi.apiV1CallsGet(getters.callsFilters, (e, d, r) => {
         if (d) {
           commit('_setCalls', d.result)
         }
+        if (r.status === 401) actions.refreshTokens()
       })
     }
   },
