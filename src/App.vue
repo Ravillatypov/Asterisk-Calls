@@ -5,12 +5,13 @@
       color="#43a047"
       dark
       shrink-on-scroll
-      prominent
-      src="https://picsum.photos/1920/1080?random"
+      src="./assets/bg.jpg"
       fade-img-on-scroll
-      scroll-target="#scrolling-techniques-5"
-      scroll-threshold="500"
+      scroll-target="#web-app-router-view"
+      scroll-threshold="200"
       dense
+      app
+      v-show="isAuthenticated"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -20,8 +21,8 @@
       </template>
 
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
-
-      <v-app-bar-title><title>Звонки</title> </v-app-bar-title>
+      <v-spacer></v-spacer>
+      <v-card-title class="white--text"> Звонки </v-card-title>
 
       <v-spacer></v-spacer>
 
@@ -34,50 +35,69 @@
       </v-btn>
 
       <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
+        <v-icon>mdi-login-variant</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      absolute
-      temporary
-      src="https://picsum.photos/1920/1080?random"
-    >
-      <v-list nav dense>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item to="home">
-            <v-list-item-icon>
-              <v-icon>mdi-phone</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Звонки</v-list-item-title>
-          </v-list-item>
+    <v-main>
+      <v-navigation-drawer
+        v-model="drawer"
+        absolute
+        temporary
+        src="./assets/bg.jpg"
+      >
+        <v-list nav dense>
+          <v-list-item-group
+            v-model="group"
+            active-class="deep-purple--text text--accent-4"
+          >
+            <v-list-item to="home">
+              <v-list-item-icon>
+                <v-icon>mdi-phone</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Звонки</v-list-item-title>
+            </v-list-item>
 
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-account</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>Account</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
-    <v-main class="mt-3">
-      <router-view></router-view>
+            <v-list-item to="login">
+              <v-list-item-icon>
+                <v-icon>mdi-account</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Account</v-list-item-title>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-navigation-drawer>
+      <router-view id="web-app-router-view" class="mt-6"></router-view>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
   name: 'App',
 
   data: () => ({
     items: [{ icon: '', text: '', link: '' }],
     drawer: false,
-    group: null
-  })
+    group: null,
+    timerUpdateUserInfo: null
+  }),
+  computed: {
+    ...mapGetters(['isAuthenticated', 'userInfo'])
+  },
+  methods: {
+    ...mapActions(['refreshTokens', 'updateUserInfo', 'logout'])
+  },
+  mounted () {
+    this.refreshTokens()
+    this.updateUserInfo()
+    this.timerUpdateUserInfo = setInterval(this.updateUserInfo, 60000)
+  },
+  beforeDestroy () {
+    if (this.timerUpdateUserInfo) {
+      clearInterval(this.timerUpdateUserInfo)
+    }
+  }
 }
 </script>

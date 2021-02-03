@@ -74,8 +74,7 @@
 </template>
 
 <script>
-import AuthApi from '@/requests/api/AuthApi'
-const authApi = new AuthApi()
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   data: () => ({
@@ -103,7 +102,8 @@ export default {
         first_name: this.firstName,
         last_name: this.lastName
       })
-    }
+    },
+    ...mapGetters(['authApi'])
   },
 
   watch: {
@@ -123,6 +123,7 @@ export default {
     },
     submit () {
       this.formHasErrors = false
+      const authApi = this.authApi
 
       Object.keys(this.form).forEach((f) => {
         if (!this.form[f]) this.formHasErrors = true
@@ -135,17 +136,16 @@ export default {
           },
           (e, d, r) => {
             if (d) {
-              localStorage.setItem('refreshToken', d.refresh_token)
+              this.setTokens(d.access_token, d.refresh_token)
               localStorage.setItem('username', this.username)
-              authApi.apiClient.authentications.jwt.apiKey = d.access_token
               this.resetForm()
             } else if (r.status === 404 || r.status === 400) {
-              this.errorMessages = ['Не правильный логин или пароль']
+              this.errorMessages = 'Не правильный логин или пароль'
               this.formHasErrors = true
             } else {
-              this.errorMessages = [
+              this.errorMessages =
                 'Что-то пошло не так. Попробуйте войти позже'
-              ]
+
               this.formHasErrors = true
             }
             if (e) {
@@ -154,7 +154,8 @@ export default {
           }
         )
       })
-    }
+    },
+    ...mapActions(['setTokens'])
   }
 }
 </script>

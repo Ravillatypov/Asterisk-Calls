@@ -6,11 +6,9 @@ import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
-var webApp = new Vue({
+window.webApp = new Vue({
   router,
   store,
   vuetify,
   render: h => h(App)
 }).$mount('#app')
-
-console.log(`${webApp}`)

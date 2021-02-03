@@ -49,11 +49,13 @@ var ApiClient = /*#__PURE__*/function () {
      * @type {Array.<String>}
      */
 
+    const accessToken = localStorage.getItem('accessToken');
     this.authentications = {
       'jwt': {
         type: 'apiKey',
         'in': 'header',
-        name: 'Authorization'
+        name: 'Authorization',
+        apiKey: accessToken !== "null" ? accessToken: null
       }
     };
     /**

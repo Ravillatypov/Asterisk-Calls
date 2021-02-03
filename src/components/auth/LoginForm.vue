@@ -52,8 +52,7 @@
 </template>
 
 <script>
-import AuthApi from '@/requests/api/AuthApi'
-const authApi = new AuthApi()
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   data: () => ({
@@ -75,7 +74,8 @@ export default {
         username: this.username,
         password: this.password
       }
-    }
+    },
+    ...mapGetters(['authApi'])
   },
 
   watch: {
@@ -101,18 +101,17 @@ export default {
 
         this.$refs[f].validate(true)
 
-        authApi.apiV1UsersLoginPost(
+        this.authApi.apiV1UsersLoginPost(
           {
             requestAuth: this.formData
           },
           (e, d, r) => {
             if (d) {
-              localStorage.setItem('refreshToken', d.refresh_token)
               localStorage.setItem('username', this.username)
-              authApi.apiClient.authentications.jwt.apiKey = d.access_token
+              this.setTokens(d.access_token, d.refresh_token)
               this.resetForm()
             } else if (r.status === 404 || r.status === 400) {
-              this.errorMessages = ['Не правильный логин или пароль']
+              this.errorMessages = 'Не правильный логин или пароль'
               this.formHasErrors = true
             } else {
               this.errorMessages = [
@@ -126,7 +125,8 @@ export default {
           }
         )
       })
-    }
+    },
+    ...mapActions(['setTokens'])
   }
 }
 </script>
