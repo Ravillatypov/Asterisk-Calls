@@ -11,7 +11,7 @@
       scroll-threshold="200"
       dense
       app
-      v-show="isAuthenticated"
+      v-show="false"
     >
       <template v-slot:img="{ props }">
         <v-img
@@ -38,34 +38,29 @@
         <v-icon>mdi-login-variant</v-icon>
       </v-btn>
     </v-app-bar>
-    <v-main>
-      <v-navigation-drawer
-        v-model="drawer"
-        absolute
-        temporary
-        src="./assets/bg.jpg"
-      >
-        <v-list nav dense>
-          <v-list-item-group
-            v-model="group"
-            active-class="deep-purple--text text--accent-4"
-          >
-            <v-list-item to="home">
-              <v-list-item-icon>
-                <v-icon>mdi-phone</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Звонки</v-list-item-title>
-            </v-list-item>
+    <v-navigation-drawer v-model="drawer" absolute src="./assets/bg.jpg">
+      <v-list nav dense>
+        <v-list-item-group
+          v-model="group"
+          active-class="deep-purple--text text--accent-4"
+        >
+          <v-list-item to="calls">
+            <v-list-item-icon>
+              <v-icon>mdi-phone</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Звонки</v-list-item-title>
+          </v-list-item>
 
-            <v-list-item to="login">
-              <v-list-item-icon>
-                <v-icon>mdi-account</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Account</v-list-item-title>
-            </v-list-item>
-          </v-list-item-group>
-        </v-list>
-      </v-navigation-drawer>
+          <v-list-item to="login">
+            <v-list-item-icon>
+              <v-icon>mdi-account</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>Account</v-list-item-title>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-navigation-drawer>
+    <v-main>
       <router-view id="web-app-router-view" class="mt-6"></router-view>
     </v-main>
   </v-app>
@@ -79,7 +74,7 @@ export default {
 
   data: () => ({
     items: [{ icon: '', text: '', link: '' }],
-    drawer: false,
+    drawer: true,
     group: null,
     timerUpdateUserInfo: null
   }),

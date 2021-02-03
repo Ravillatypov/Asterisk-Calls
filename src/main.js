@@ -6,6 +6,21 @@ import vuetify from './plugins/vuetify'
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.getters.isAuthenticated) {
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
 window.webApp = new Vue({
   router,
   store,

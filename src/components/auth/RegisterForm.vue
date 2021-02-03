@@ -103,7 +103,7 @@ export default {
         last_name: this.lastName
       })
     },
-    ...mapGetters(['authApi'])
+    ...mapGetters(['authApi', 'isAuthenticated'])
   },
 
   watch: {
@@ -112,14 +112,25 @@ export default {
     }
   },
 
+  mounted () {
+    if (this.isAuthenticated) {
+      if (this.$route.params.nextUrl != null) {
+        this.$router.push(this.$route.params.nextUrl)
+      } else {
+        this.$router.push('/calls')
+      }
+    }
+  },
+
   methods: {
     resetForm () {
       this.errorMessages = ''
       this.formHasErrors = false
 
-      Object.keys(this.form).forEach((f) => {
-        this.$refs[f].reset()
-      })
+      this.username = ''
+      this.password = ''
+      this.firstName = ''
+      this.lastName = ''
     },
     submit () {
       this.formHasErrors = false
@@ -139,6 +150,11 @@ export default {
               this.setTokens(d.access_token, d.refresh_token)
               localStorage.setItem('username', this.username)
               this.resetForm()
+              if (this.$route.params.nextUrl != null) {
+                this.$router.push(this.$route.params.nextUrl)
+              } else {
+                this.$router.push('/calls')
+              }
             } else if (r.status === 404 || r.status === 400) {
               this.errorMessages = 'Не правильный логин или пароль'
               this.formHasErrors = true

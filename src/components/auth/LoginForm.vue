@@ -44,6 +44,9 @@
               <span>Сбросить</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
+          <v-btn color="secondary" text to="/register">
+            Зарегистрироваться
+          </v-btn>
           <v-btn color="primary" text @click="submit"> Войти </v-btn>
         </v-card-actions>
       </v-card>
@@ -75,7 +78,7 @@ export default {
         password: this.password
       }
     },
-    ...mapGetters(['authApi'])
+    ...mapGetters(['authApi', 'isAuthenticated'])
   },
 
   watch: {
@@ -84,14 +87,22 @@ export default {
     }
   },
 
+  mounted () {
+    if (this.isAuthenticated) {
+      if (this.$route.params.nextUrl != null) {
+        this.$router.push(this.$route.params.nextUrl)
+      } else {
+        this.$router.push('/calls')
+      }
+    }
+  },
   methods: {
     resetForm () {
       this.errorMessages = ''
       this.formHasErrors = false
 
-      Object.keys(this.form).forEach((f) => {
-        this.$refs[f].reset()
-      })
+      this.username = ''
+      this.password = ''
     },
     submit () {
       this.formHasErrors = false
@@ -110,6 +121,11 @@ export default {
               localStorage.setItem('username', this.username)
               this.setTokens(d.access_token, d.refresh_token)
               this.resetForm()
+              if (this.$route.params.nextUrl != null) {
+                this.$router.push(this.$route.params.nextUrl)
+              } else {
+                this.$router.push('/calls')
+              }
             } else if (r.status === 404 || r.status === 400) {
               this.errorMessages = 'Не правильный логин или пароль'
               this.formHasErrors = true
