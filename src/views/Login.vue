@@ -10,15 +10,13 @@ export default {
   props: ['nextUrl'],
   computed: {
     url () {
-      if (this.nextUrl) return this.nextUrl
-      return this.$route.query.nextUrl || '/register'
+      if (this.nextUrl !== null && this.nextUrl !== undefined) { return this.nextUrl }
+      return this.$route.query.nextUrl || '/calls'
     }
   },
   components: { LoginForm },
   mounted () {
-    const to = this.nextUrl === null ? '/calls' : this.nextUrl
-
-    if (this.$store.getters.isAuthenticated) this.$router.push(to)
+    if (this.$store.getters.isAuthenticated) this.$router.push(this.url)
   }
 }
 </script>

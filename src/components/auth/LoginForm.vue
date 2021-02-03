@@ -125,8 +125,8 @@ export default {
               this.setTokens(d.access_token, d.refresh_token)
               this.resetForm()
 
-              if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl)
+              if (this.nextUrl != null) {
+                this.$router.push(this.nextUrl)
               } else {
                 this.$router.push('/calls')
               }

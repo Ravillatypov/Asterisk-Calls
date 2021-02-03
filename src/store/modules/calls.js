@@ -42,7 +42,7 @@ export default {
 
         res.is_record = res.call_type === 'INTERNAL' ? false : res.is_record
         res.ext_number =
-          res.state === 'INCOMING' ? res.request_number : res.from_number
+          i.call_type === 'INCOMING' ? i.request_number : i.from_number
         res.state = getCallStateName(res.state)
         res.call_type = getCallTypeName(res.call_type)
 

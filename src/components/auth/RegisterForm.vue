@@ -77,6 +77,7 @@
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
+  props: ['nextUrl'],
   data: () => ({
     errorMessages: [],
     username: null,
@@ -114,8 +115,8 @@ export default {
 
   mounted () {
     if (this.isAuthenticated) {
-      if (this.$route.params.nextUrl != null) {
-        this.$router.push(this.$route.params.nextUrl)
+      if (this.nextUrl != null) {
+        this.$router.push(this.nextUrl)
       } else {
         this.$router.push('/calls')
       }
@@ -150,8 +151,9 @@ export default {
               this.setTokens(d.access_token, d.refresh_token)
               localStorage.setItem('username', this.username)
               this.resetForm()
-              if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl)
+
+              if (this.nextUrl != null) {
+                this.$router.push(this.nextUrl)
               } else {
                 this.$router.push('/calls')
               }
