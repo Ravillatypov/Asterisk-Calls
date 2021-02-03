@@ -11,7 +11,7 @@
             label="Имя пользователя"
             placeholder="pavel"
             required
-            clearable
+            v-on:keyup.enter="submit()"
           ></v-text-field>
           <v-text-field
             ref="password"
@@ -21,7 +21,7 @@
             placeholder=""
             type="password"
             required
-            clearable
+            v-on:keyup.enter="submit()"
           ></v-text-field>
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
@@ -68,6 +68,7 @@ export default {
     formHasErrors: false
   }),
 
+  props: ['nextUrl'],
   computed: {
     formData () {
       return JSON.stringify(this.form)
@@ -89,8 +90,8 @@ export default {
 
   mounted () {
     if (this.isAuthenticated) {
-      if (this.$route.params.nextUrl != null) {
-        this.$router.push(this.$route.params.nextUrl)
+      if (this.nextUrl != null) {
+        this.$router.push(this.nextUrl)
       } else {
         this.$router.push('/calls')
       }
@@ -111,7 +112,9 @@ export default {
         if (!this.form[f]) this.formHasErrors = true
 
         this.$refs[f].validate(true)
+      })
 
+      if (!this.formHasErrors) {
         this.authApi.apiV1UsersLoginPost(
           {
             requestAuth: this.formData
@@ -121,6 +124,7 @@ export default {
               localStorage.setItem('username', this.username)
               this.setTokens(d.access_token, d.refresh_token)
               this.resetForm()
+
               if (this.$route.params.nextUrl != null) {
                 this.$router.push(this.$route.params.nextUrl)
               } else {
@@ -140,7 +144,7 @@ export default {
             }
           }
         )
-      })
+      }
     },
     ...mapActions(['setTokens'])
   }

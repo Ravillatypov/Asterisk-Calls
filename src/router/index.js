@@ -17,7 +17,8 @@ const routes = [
     path: '/login',
     name: 'login',
     component: Login,
-    meta: { requiresAuth: false }
+    meta: { requiresAuth: false },
+    props: true
   },
   {
     path: '/register',
