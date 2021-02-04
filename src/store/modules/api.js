@@ -33,10 +33,11 @@ export default {
     refreshToken: state => state.refreshToken
   },
   mutations: {
-    _resetTokens (state, getters) {
+    _resetTokens (state) {
       localStorage.setItem(refreshKey, null)
       localStorage.setItem('UserID', null)
-      getters.client.authentications.jwt.apiKey = null
+      localStorage.setItem('accessToken', null)
+      client.authentications.jwt.apiKey = null
       state.refreshToken = null
     },
     _setRefreshToken (state, refresh) {

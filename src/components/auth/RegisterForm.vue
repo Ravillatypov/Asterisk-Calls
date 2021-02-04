@@ -150,6 +150,7 @@ export default {
           (e, d, r) => {
             if (d) {
               this.setTokens(d.access_token, d.refresh_token)
+              this.updateUserInfo()
               localStorage.setItem('username', this.username)
               this.resetForm()
 
@@ -174,7 +175,7 @@ export default {
         )
       })
     },
-    ...mapActions(['setTokens', 'refreshTokens'])
+    ...mapActions(['setTokens', 'refreshTokens', 'updateUserInfo'])
   }
 }
 </script>

@@ -124,6 +124,7 @@ export default {
             if (d) {
               localStorage.setItem('username', this.username)
               this.setTokens(d.access_token, d.refresh_token)
+              this.updateUserInfo()
               this.resetForm()
 
               if (this.nextUrl != null) {
@@ -147,7 +148,7 @@ export default {
         )
       }
     },
-    ...mapActions(['setTokens', 'refreshTokens'])
+    ...mapActions(['setTokens', 'refreshTokens', 'updateUserInfo'])
   }
 }
 </script>

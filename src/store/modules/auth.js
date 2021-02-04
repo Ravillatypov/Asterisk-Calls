@@ -13,7 +13,7 @@ export default {
     userInfo: { ...defaultUserInfo }
   },
   actions: {
-    refreshTokens ({ commit, getters, actions }) {
+    refreshTokens ({ commit, getters, actions, dispatch }) {
       const refresh = getters.refreshToken
       if (refresh) {
         getters.authApi.apiV1UsersRefreshTokenPost(
@@ -23,14 +23,14 @@ export default {
               actions.setTokens(d.access_token, d.refresh_token)
             }
             if ([400, 401, 403].includes(r.status)) {
-              actions.resetTokens()
+              dispatch('resetTokens')
               commit('_resetUserInfo')
             }
           }
         )
       }
     },
-    logout ({ commit, getters, actions }) {
+    logout ({ commit, getters, dispatch }) {
       const refresh = getters.refreshToken
       if (refresh) {
         getters.authApi.apiV1UsersRevokeTokenPost(
@@ -42,7 +42,7 @@ export default {
           }
         )
       }
-      actions.resetTokens()
+      dispatch('resetTokens')
       commit('_resetUserInfo')
     },
     updateUserInfo ({ commit, getters }) {
@@ -67,6 +67,7 @@ export default {
   },
   getters: {
     isAuthenticated: state => !!state.userInfo.id,
+    permissions: state => state.userInfo.permissions,
     userInfo: state => state.userInfo
   }
 }
