@@ -1,24 +1,22 @@
 <template>
-  <LoginForm :nextUrl="url" />
+  <RegisterForm :nextUrl="url" />
 </template>
 
 <script>
-import LoginForm from '@/components/auth/LoginForm.vue'
+import RegisterForm from '@/components/auth/RegisterForm.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  name: 'login',
+  name: 'register',
   props: ['nextUrl'],
   computed: {
     url () {
-      if (this.nextUrl !== null && this.nextUrl !== undefined) {
-        return this.nextUrl
-      }
+      if (this.nextUrl) return this.nextUrl
       return this.$route.query.nextUrl || '/calls'
     },
     ...mapGetters(['isAuthenticated'])
   },
-  components: { LoginForm },
+  components: { RegisterForm },
   mounted () {
     if (this.isAuthenticated) this.$router.push(this.url)
   },
