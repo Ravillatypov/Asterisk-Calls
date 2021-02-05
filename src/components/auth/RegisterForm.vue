@@ -1,7 +1,8 @@
 <template>
   <v-row justify="center">
-    <v-col cols="12" sm="10" md="8" lg="6">
+    <v-col cols="10" sm="8" md="6" lg="4">
       <v-card ref="form">
+        <v-card-title>Регистрация</v-card-title>
         <v-card-text>
           <v-text-field
             ref="firstName"
@@ -11,7 +12,6 @@
             label="Имя"
             placeholder="Павел"
             required
-            clearable
           ></v-text-field>
           <v-text-field
             ref="lastName"
@@ -21,7 +21,6 @@
             label="Фамилия"
             placeholder="Иванов"
             required
-            clearable
           ></v-text-field>
           <v-text-field
             ref="username"
@@ -30,7 +29,6 @@
             :error-messages="errorMessages"
             label="Логин"
             placeholder="pavel"
-            required
             clearable
           ></v-text-field>
           <v-text-field
@@ -39,9 +37,10 @@
             :rules="[() => !!password || 'Без пароля, увы не получится']"
             label="Пароль"
             placeholder=""
-            type="password"
             required
-            clearable
+            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="() => (value = !value)"
+            :type="value ? 'password' : 'text'"
           ></v-text-field>
         </v-card-text>
         <v-divider class="mt-12"></v-divider>
@@ -84,7 +83,8 @@ export default {
     password: null,
     firstName: null,
     lastName: null,
-    formHasErrors: false
+    formHasErrors: false,
+    value: false
   }),
 
   computed: {

@@ -1,7 +1,8 @@
 <template>
   <v-row justify="center">
-    <v-col cols="12" sm="10" md="8" lg="6">
+    <v-col cols="10" sm="8" md="6" lg="4">
       <v-card ref="form">
+        <v-card-title> Вход в систему </v-card-title>
         <v-card-text>
           <v-text-field
             ref="username"
@@ -19,7 +20,9 @@
             :rules="[() => !!password || 'Без пароля, увы не получится']"
             label="Пароль"
             placeholder=""
-            type="password"
+            :append-icon="value ? 'mdi-eye' : 'mdi-eye-off'"
+            @click:append="() => (value = !value)"
+            :type="value ? 'password' : 'text'"
             required
             v-on:keyup.enter="submit()"
           ></v-text-field>
@@ -44,7 +47,7 @@
               <span>Сбросить</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="secondary" text to="/register">
+          <v-btn color="secondary" text to="/register" link>
             Зарегистрироваться
           </v-btn>
           <v-btn color="primary" text @click="submit"> Войти </v-btn>
@@ -65,7 +68,8 @@ export default {
         ? null
         : localStorage.getItem('username'),
     password: null,
-    formHasErrors: false
+    formHasErrors: false,
+    value: false
   }),
 
   props: ['nextUrl'],

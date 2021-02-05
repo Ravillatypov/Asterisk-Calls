@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Calls from '@/views/Calls.vue'
+import Profile from '@/views/Profile.vue'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,18 @@ const routes = [
     path: '/calls',
     name: 'calls',
     component: Calls,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/profile',
+    name: 'profile',
+    component: Profile,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/tags',
+    name: 'tags',
+    component: Profile,
     meta: { requiresAuth: true }
   }
 ]

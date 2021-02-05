@@ -46,11 +46,11 @@
           >
             <v-list-item v-show="isAuthenticated" @click="fullLogout()">
               <v-list-item-icon>
-                <v-icon>log-out-variant</v-icon>
+                <v-icon>mdi-exit-to-app</v-icon>
               </v-list-item-icon>
 
               <v-list-item-content>
-                <v-list-item-title class="green--text text--darken-1"
+                <v-list-item-title class="white--text text--darken-1"
                   >Выход</v-list-item-title
                 >
               </v-list-item-content>
@@ -67,6 +67,13 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import {
+  mdiLocationEnter,
+  mdiTagMultipleOutline,
+  mdiAccountEdit,
+  mdiAccountPlusOutline,
+  mdiPhoneOutline
+} from '@mdi/js'
 
 export default {
   name: 'App',
@@ -74,37 +81,37 @@ export default {
   data: () => ({
     menuItems: [
       {
-        icon: 'mdi-user-details-outline',
+        icon: mdiLocationEnter,
         title: 'Вход',
         link: 'login',
         permission: null,
         authRequired: false
       },
       {
-        icon: 'mdi-user-details-outline',
+        icon: mdiAccountPlusOutline,
         title: 'Регистрация',
         link: 'register',
         permission: null,
         authRequired: false
       },
       {
-        icon: 'mdi-user-details-outline',
+        icon: mdiAccountEdit,
         title: 'Мой профайл',
-        link: 'calls',
+        link: 'profile',
         permission: null,
         authRequired: true
       },
       {
-        icon: 'mdi-phone',
+        icon: mdiPhoneOutline,
         title: 'Звонки',
         link: 'calls',
         permission: 0,
         authRequired: true
       },
       {
-        icon: 'mdi-phone',
+        icon: mdiTagMultipleOutline,
         title: 'Метки',
-        link: 'calls',
+        link: 'tags',
         permission: 4,
         authRequired: true
       }
