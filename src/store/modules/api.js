@@ -13,7 +13,7 @@ const refToken = ['null', 'undefined'].includes(lrefToken) ? null : lrefToken
 
 export default {
   state: {
-    cleint: client,
+    client: client,
     tagsApi: new TagsApi(client),
     usersApi: new UsersApi(client),
     authApi: new AuthApi(client),
@@ -23,14 +23,16 @@ export default {
     refreshToken: refToken
   },
   getters: {
-    cleint: state => state.cleint,
+    client: state => state.client,
     tagsApi: state => state.tagsApi,
     usersApi: state => state.usersApi,
     authApi: state => state.authApi,
     callsApi: state => state.callsApi,
     callRecordsApi: state => state.callRecordsApi,
     permissionsApi: state => state.permissionsApi,
-    refreshToken: state => state.refreshToken
+    refreshToken: state => state.refreshToken,
+    apiUrl: state => state.client.basePath,
+    accessToken: state => state.client.authentications.jwt.apiKey
   },
   mutations: {
     _resetTokens (state) {

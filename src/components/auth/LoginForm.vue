@@ -47,9 +47,6 @@
               <span>Сбросить</span>
             </v-tooltip>
           </v-slide-x-reverse-transition>
-          <v-btn color="secondary" text to="/register" link>
-            Зарегистрироваться
-          </v-btn>
           <v-btn color="primary" text @click="submit"> Войти </v-btn>
         </v-card-actions>
       </v-card>
