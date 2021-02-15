@@ -84,7 +84,7 @@ export default {
     firstName: null,
     lastName: null,
     formHasErrors: false,
-    value: false
+    value: true
   }),
 
   computed: {

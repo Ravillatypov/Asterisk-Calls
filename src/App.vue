@@ -69,7 +69,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import {
   mdiLocationEnter,
-  mdiTagMultipleOutline,
+  // mdiTagMultipleOutline,
   mdiAccountEdit,
   mdiAccountPlusOutline,
   mdiPhoneOutline
@@ -107,14 +107,14 @@ export default {
         link: 'calls',
         permission: 0,
         authRequired: true
-      },
-      {
-        icon: mdiTagMultipleOutline,
-        title: 'Метки',
-        link: 'tags',
-        permission: 4,
-        authRequired: true
-      }
+      }//,
+      // {
+      //   icon: mdiTagMultipleOutline,
+      //   title: 'Метки',
+      //   link: 'tags',
+      //   permission: 4,
+      //   authRequired: true
+      // }
     ],
     drawer: false,
     group: null,

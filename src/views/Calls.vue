@@ -38,7 +38,6 @@ export default {
 
       this.ws = new WebSocket(this.websocketUrl)
       this.ws.onmessage = (data) => {
-        console.log(data)
         this2.getCalls()
       }
       this.ws.onclose = (e) => {

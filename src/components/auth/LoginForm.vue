@@ -66,7 +66,7 @@ export default {
         : localStorage.getItem('username'),
     password: null,
     formHasErrors: false,
-    value: false
+    value: true
   }),
 
   props: ['nextUrl'],
