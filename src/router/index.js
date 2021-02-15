@@ -4,6 +4,7 @@ import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Calls from '@/views/Calls.vue'
 import Profile from '@/views/Profile.vue'
+import ifAuthenticated from './guards'
 
 Vue.use(VueRouter)
 
@@ -12,7 +13,8 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Calls,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/login',
@@ -32,24 +34,27 @@ const routes = [
     path: '/calls',
     name: 'calls',
     component: Calls,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/profile',
     name: 'profile',
     component: Profile,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: ifAuthenticated
   },
   {
     path: '/tags',
     name: 'tags',
     component: Profile,
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: true },
+    beforeEnter: ifAuthenticated
   }
 ]
 
 const router = new VueRouter({
-  mode: 'history',
+  // mode: 'history',
   base: process.env.BASE_URL,
   routes
 })

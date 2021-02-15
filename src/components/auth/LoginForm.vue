@@ -93,9 +93,9 @@ export default {
     this.refreshTokens()
     if (this.isAuthenticated) {
       if (this.nextUrl != null) {
-        this.$router.push(this.nextUrl)
+        this.$router.push({ name: this.nextUrl })
       } else {
-        this.$router.push('/calls')
+        this.$router.push({ name: 'calls' })
       }
     }
   },
@@ -122,16 +122,16 @@ export default {
             requestAuth: this.formData
           },
           (e, d, r) => {
-            if (d) {
+            if (r.status === 200) {
               localStorage.setItem('username', this.username)
               this.setTokens(d.access_token, d.refresh_token)
               this.updateUserInfo()
               this.resetForm()
 
               if (this.nextUrl != null) {
-                this.$router.push(this.nextUrl)
+                this.$router.push({ name: this.nextUrl })
               } else {
-                this.$router.push('/calls')
+                this.$router.push({ name: 'calls' })
               }
             } else if (r.status === 404 || r.status === 400) {
               this.errorMessages = 'Не правильный логин или пароль'

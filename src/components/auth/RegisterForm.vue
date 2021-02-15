@@ -117,9 +117,9 @@ export default {
     this.refreshTokens()
     if (this.isAuthenticated) {
       if (this.nextUrl != null) {
-        this.$router.push(this.nextUrl)
+        this.$router.push({ name: this.nextUrl })
       } else {
-        this.$router.push('/calls')
+        this.$router.push({ name: 'calls' })
       }
     }
   },
@@ -155,9 +155,9 @@ export default {
               this.resetForm()
 
               if (this.nextUrl != null) {
-                this.$router.push(this.nextUrl)
+                this.$router.push({ name: this.nextUrl })
               } else {
-                this.$router.push('/calls')
+                this.$router.push({ name: 'calls' })
               }
             } else if (r.status === 404 || r.status === 400) {
               this.errorMessages = 'Не правильный логин или пароль'

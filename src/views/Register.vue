@@ -12,17 +12,17 @@ export default {
   computed: {
     url () {
       if (this.nextUrl) return this.nextUrl
-      return this.$route.query.nextUrl || '/calls'
+      return this.$route.query.nextUrl || 'calls'
     },
     ...mapGetters(['isAuthenticated'])
   },
   components: { RegisterForm },
   mounted () {
-    if (this.isAuthenticated) this.$router.push(this.url)
+    if (this.isAuthenticated) this.$router.push({ name: this.url })
   },
   watch: {
     isAuthenticated (oldVal, newVal) {
-      if (newVal) this.$router.push(this.url)
+      if (newVal) this.$router.push({ name: this.url })
     }
   }
 }

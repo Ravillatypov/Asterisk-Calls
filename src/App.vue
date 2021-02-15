@@ -135,7 +135,7 @@ export default {
   methods: {
     fullLogout () {
       this.logout()
-      this.$router.push('/login')
+      this.$router.push({ name: 'login' })
     },
     ...mapActions(['refreshTokens', 'updateUserInfo', 'logout'])
   },

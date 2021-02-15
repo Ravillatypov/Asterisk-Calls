@@ -530,6 +530,9 @@ var ApiClient = /*#__PURE__*/function () {
       }
 
       request.end(function (error, response) {
+        if (response.status === 401) {
+          _this3.authentications.jwt.apiKey = null;
+        }
         if (callback) {
           var data = null;
 
