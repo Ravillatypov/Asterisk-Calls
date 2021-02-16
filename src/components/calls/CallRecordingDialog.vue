@@ -1,19 +1,25 @@
 <template>
-  <v-tooltip
+  <v-dialog
     left
     v-model="show"
+    max-width="400px"
+    @click:outside="pauseAllPlays()"
   >
-    <template v-slot:activator>
+    <template v-slot:activator="{on}">
       <v-btn
         icon
+        v-bind="on"
+        @click="show = !show"
       >
-        <v-icon @click="show = !show">
+        <v-icon>
           mdi-play-circle-outline
         </v-icon>
       </v-btn>
     </template>
-    <audio controls :src="callRecordUrl"></audio>
-  </v-tooltip>
+    <audio controls autoplay preload="auto" :id="playerId">
+      <source :src="callRecordUrl">
+    </audio>
+  </v-dialog>
 </template>
 
 <script>
@@ -28,9 +34,23 @@ export default {
   },
   computed: {
     callRecordUrl () {
-      return `${this.apiUrl}/api/v1/record/?call_id=${this.callId}`
+      return `${this.apiUrl}/api/v1/record/?call_id=${this.callId}&token=${this.accessToken}`
     },
-    ...mapGetters(['apiUrl'])
+    playerId () {
+      return `audio-${this.callId}`
+    },
+    ...mapGetters(['apiUrl', 'accessToken'])
+  },
+  watch: {
+    show (old, newval) {
+      if (!newval) this.pauseAllPlays()
+    }
+  },
+  methods: {
+    pauseAllPlays () {
+      const player = window.document.getElementById(this.playerId)
+      if (player !== null && player !== undefined) player.pause()
+    }
   }
 }
 </script>

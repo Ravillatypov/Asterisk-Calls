@@ -27,23 +27,51 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 export default {
   data () {
     return {
       selectedState: 'NEED_RECALL',
       selectedCallType: null,
       statesSelect: [
-        { state: 'NEED_RECALL', title: 'Необходимо перезвонить' },
-        { state: 'NEW', title: 'Новый' },
-        { state: 'CONNECTED', title: 'Начат' },
-        { state: 'END', title: 'Успешный' },
-        { state: 'MISSED', title: 'Пропущен' },
-        { state: 'NOT_CONNECTED', title: 'Недозвон' }
+        {
+          state: 'NEED_RECALL',
+          title: 'Необходимо перезвонить'
+        },
+        {
+          state: 'NEW',
+          title: 'Новый'
+        },
+        {
+          state: 'CONNECTED',
+          title: 'Начат'
+        },
+        {
+          state: 'END',
+          title: 'Успешный'
+        },
+        {
+          state: 'MISSED',
+          title: 'Пропущен'
+        },
+        {
+          state: 'NOT_CONNECTED',
+          title: 'Недозвон'
+        }
       ],
       callTypeSelect: [
-        { type: 'INCOMING', title: 'Входящий' },
-        { type: 'OUTBOUND', title: 'Исходящий' },
-        { type: 'INTERNAL', title: 'Внутренний' }
+        {
+          type: 'INCOMING',
+          title: 'Входящий'
+        },
+        {
+          type: 'OUTBOUND',
+          title: 'Исходящий'
+        },
+        {
+          type: 'INTERNAL',
+          title: 'Внутренний'
+        }
       ],
       showFilter: false,
       ordering: '-created_at'

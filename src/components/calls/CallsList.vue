@@ -36,8 +36,8 @@
 
       <template v-slot:item.is_record="{ item }">
         <div v-if="item.is_record">
-          <CallRecordingDialog :id="item.id"/>
-          <v-btn icon color="indigo" link :href="callRecordUrl(item.id)" target="_blank">
+          <CallRecordingDialog :call-id="item.id"/>
+          <v-btn icon color="indigo" link :href="callRecordUrl(item.id)" target="_blank" aria-label="Download">
             <v-icon dense>mdi-download-circle-outline</v-icon>
           </v-btn>
         </div>
