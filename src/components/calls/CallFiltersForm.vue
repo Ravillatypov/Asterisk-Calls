@@ -27,6 +27,7 @@
           item-text="title"
           item-value="type"
           label="Номер"
+          readonly
           clearable
           @click:clear="updateFilterAndGetCalls({number: null})"
         ></v-text-field>
