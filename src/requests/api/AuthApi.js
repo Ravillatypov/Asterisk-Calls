@@ -9,6 +9,8 @@ var _ApiClient = _interopRequireDefault(require("../ApiClient"));
 
 var _RequestAuth = _interopRequireDefault(require("../model/RequestAuth"));
 
+var _RequestAuthByToken = _interopRequireDefault(require("../model/RequestAuthByToken"));
+
 var _RequestRefreshToken = _interopRequireDefault(require("../model/RequestRefreshToken"));
 
 var _RequestRegister = _interopRequireDefault(require("../model/RequestRegister"));
@@ -90,9 +92,9 @@ var AuthApi = /*#__PURE__*/function () {
      */
 
     /**
-     * User login
+     * Register
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestAuth} opts.requestAuth 
+     * @param {module:model/RequestAuthByToken} opts.requestAuthByToken 
      * @param {module:api/AuthApi~apiV1UsersLoginTokenPostCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ResponseRefreshAccessToken}
      */
@@ -101,7 +103,7 @@ var AuthApi = /*#__PURE__*/function () {
     key: "apiV1UsersLoginTokenPost",
     value: function apiV1UsersLoginTokenPost(opts, callback) {
       opts = opts || {};
-      var postBody = opts['requestAuth'];
+      var postBody = opts['requestAuthByToken'];
       var pathParams = {};
       var queryParams = {};
       var headerParams = {};

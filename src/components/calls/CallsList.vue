@@ -34,6 +34,18 @@
         <span v-else>{{ item.state }}</span>
       </template>
 
+      <template v-slot:item.a_number="{ item }">
+        <a @click="updateFilterAndGetCalls(item.a_number)"> {{ item.a_number }} </a>
+      </template>
+
+      <template v-slot:item.b_number="{ item }">
+        <a @click="updateFilterAndGetCalls(item.b_number)"> {{ item.b_number }} </a>
+      </template>
+
+      <template v-slot:item.ext_number="{ item }">
+        <a @click="updateFilterAndGetCalls(item.ext_number)"> {{ item.ext_number }} </a>
+      </template>
+
       <template v-slot:item.is_record="{ item }">
         <div v-if="item.is_record">
           <CallRecordingDialog :call-id="item.id"/>
@@ -175,6 +187,10 @@ export default {
   methods: {
     callRecordUrl (callId) {
       return `${this.apiUrl}/api/v1/record/?call_id=${callId}`
+    },
+    updateFilterAndGetCalls (num) {
+      this.$store.commit('_setCallsFilters', { number: num })
+      this.getCalls()
     },
     ...mapActions(['getCalls'])
   },

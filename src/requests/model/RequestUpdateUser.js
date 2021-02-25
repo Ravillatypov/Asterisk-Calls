@@ -66,6 +66,10 @@ var RequestUpdateUser = /*#__PURE__*/function () {
         if (data.hasOwnProperty('last_name')) {
           obj['last_name'] = _ApiClient["default"].convertToType(data['last_name'], 'String');
         }
+
+        if (data.hasOwnProperty('password')) {
+          obj['password'] = _ApiClient["default"].convertToType(data['password'], 'String');
+        }
       }
 
       return obj;
@@ -85,5 +89,10 @@ RequestUpdateUser.prototype['first_name'] = undefined;
  */
 
 RequestUpdateUser.prototype['last_name'] = undefined;
+/**
+ * @member {String} password
+ */
+
+RequestUpdateUser.prototype['password'] = undefined;
 var _default = RequestUpdateUser;
 exports["default"] = _default;

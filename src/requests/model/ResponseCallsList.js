@@ -27,11 +27,12 @@ var ResponseCallsList = /*#__PURE__*/function () {
    * Constructs a new <code>ResponseCallsList</code>.
    * @alias module:model/ResponseCallsList
    * @param result {Array.<module:model/ResponseCall>} 
+   * @param count {Number} 
    */
-  function ResponseCallsList(result) {
+  function ResponseCallsList(result, count) {
     _classCallCheck(this, ResponseCallsList);
 
-    ResponseCallsList.initialize(this, result);
+    ResponseCallsList.initialize(this, result, count);
   }
   /**
    * Initializes the fields of this object.
@@ -42,8 +43,9 @@ var ResponseCallsList = /*#__PURE__*/function () {
 
   _createClass(ResponseCallsList, null, [{
     key: "initialize",
-    value: function initialize(obj, result) {
+    value: function initialize(obj, result, count) {
       obj['result'] = result;
+      obj['count'] = count;
     }
     /**
      * Constructs a <code>ResponseCallsList</code> from a plain JavaScript object, optionally creating a new instance.
@@ -62,6 +64,10 @@ var ResponseCallsList = /*#__PURE__*/function () {
         if (data.hasOwnProperty('result')) {
           obj['result'] = _ApiClient["default"].convertToType(data['result'], [_ResponseCall["default"]]);
         }
+
+        if (data.hasOwnProperty('count')) {
+          obj['count'] = _ApiClient["default"].convertToType(data['count'], 'Number');
+        }
       }
 
       return obj;
@@ -76,5 +82,10 @@ var ResponseCallsList = /*#__PURE__*/function () {
 
 
 ResponseCallsList.prototype['result'] = undefined;
+/**
+ * @member {Number} count
+ */
+
+ResponseCallsList.prototype['count'] = undefined;
 var _default = ResponseCallsList;
 exports["default"] = _default;

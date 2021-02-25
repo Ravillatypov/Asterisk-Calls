@@ -10,7 +10,8 @@ export default {
       state: null,
       startedFrom: null,
       startedTo: null,
-      offset: null
+      offset: null,
+      number: null
     },
     callsOrdering: '-created_at'
   },
@@ -57,6 +58,7 @@ export default {
 
         return res
       }),
-    callsFilters: state => state.callsFilters
+    callsFilters: state => state.callsFilters,
+    filterByNumber: state => state.callsFilters.number
   }
 }

@@ -38,7 +38,7 @@ var ApiClient = /*#__PURE__*/function () {
     /**
      * The base URL against which to resolve every API call's (relative) path.
      * @type {String}
-     * @default http://aster-api.loc
+     * @default http://pbx.mckazan.loc
      */
     this.basePath = location.protocol + '//' + location.host;
     const apiUrlFromStoage = localStorage.getItem('apiUrl');
@@ -125,21 +125,8 @@ var ApiClient = /*#__PURE__*/function () {
         return param.toJSON();
       }
 
-      if (ApiClient.canBeJsonified(param)) {
-        return JSON.stringify(param);
-      }
-
       return param.toString();
     }
-    /**
-    * Returns a boolean indicating if the parameter could be JSON.stringified
-    * @param param The actual parameter
-    * @returns {Boolean} Flag indicating if <code>param</code> can be JSON.stringified
-    */
-
-  }, {
-    key: "buildUrl",
-
     /**
      * Builds full URL by appending the given path to the base URL and replacing path parameter place-holders with parameter values.
      * NOTE: query parameters are not handled here.
@@ -148,6 +135,9 @@ var ApiClient = /*#__PURE__*/function () {
      * @param {String} apiBasePath Base path defined in the path, operation level to override the default one
      * @returns {String} The encoded path with parameter values substituted.
      */
+
+  }, {
+    key: "buildUrl",
     value: function buildUrl(path, pathParams, apiBasePath) {
       var _this = this;
 
@@ -161,7 +151,7 @@ var ApiClient = /*#__PURE__*/function () {
         url = apiBasePath + path;
       }
 
-      url = url.replace(/\{([\w-\.]+)\}/g, function (fullMatch, key) {
+      url = url.replace(/\{([\w-]+)\}/g, function (fullMatch, key) {
         var value;
 
         if (pathParams.hasOwnProperty(key)) {
@@ -294,23 +284,20 @@ var ApiClient = /*#__PURE__*/function () {
 
       switch (collectionFormat) {
         case 'csv':
-          return param.map(this.paramToString, this).join(',');
+          return param.map(this.paramToString).join(',');
 
         case 'ssv':
-          return param.map(this.paramToString, this).join(' ');
+          return param.map(this.paramToString).join(' ');
 
         case 'tsv':
-          return param.map(this.paramToString, this).join('\t');
+          return param.map(this.paramToString).join('\t');
 
         case 'pipes':
-          return param.map(this.paramToString, this).join('|');
+          return param.map(this.paramToString).join('|');
 
         case 'multi':
           //return the array directly as SuperAgent will handle it as expected
-          return param.map(this.paramToString, this);
-
-        case 'passthrough':
-          return param;
+          return param.map(this.paramToString);
 
         default:
           throw new Error('Unknown collection format: ' + collectionFormat);
@@ -340,9 +327,8 @@ var ApiClient = /*#__PURE__*/function () {
 
           case 'bearer':
             if (auth.accessToken) {
-              var localVarBearerToken = typeof auth.accessToken === 'function' ? auth.accessToken() : auth.accessToken;
               request.set({
-                'Authorization': 'Bearer ' + localVarBearerToken
+                'Authorization': 'Bearer ' + auth.accessToken
               });
             }
 
@@ -485,18 +471,11 @@ var ApiClient = /*#__PURE__*/function () {
 
         for (var key in _formParams) {
           if (_formParams.hasOwnProperty(key)) {
-            var _formParamsValue = _formParams[key];
-
-            if (this.isFileParam(_formParamsValue)) {
+            if (this.isFileParam(_formParams[key])) {
               // file field
-              request.attach(key, _formParamsValue);
-            } else if (Array.isArray(_formParamsValue) && _formParamsValue.length && this.isFileParam(_formParamsValue[0])) {
-              // multiple files
-              _formParamsValue.forEach(function (file) {
-                return request.attach(key, file);
-              });
+              request.attach(key, _formParams[key]);
             } else {
-              request.field(key, _formParamsValue);
+              request.field(key, _formParams[key]);
             }
           }
         }
@@ -554,21 +533,21 @@ var ApiClient = /*#__PURE__*/function () {
       return request;
     }
     /**
-    * Parses an ISO-8601 string representation or epoch representation of a date value.
+    * Parses an ISO-8601 string representation of a date value.
     * @param {String} str The date value as a string.
     * @returns {Date} The parsed date object.
     */
 
   }, {
     key: "hostSettings",
-
+    value:
     /**
       * Gets an array of host settings
       * @returns An array of host settings
       */
-    value: function hostSettings() {
+    function hostSettings() {
       return [{
-        'url': "http://aster-api.loc/",
+        'url': "http://pbx.mckazan.loc/",
         'description': "No description provided"
       }];
     }
@@ -609,25 +588,9 @@ var ApiClient = /*#__PURE__*/function () {
     */
 
   }], [{
-    key: "canBeJsonified",
-    value: function canBeJsonified(str) {
-      if (typeof str !== 'string' && _typeof(str) !== 'object') return false;
-
-      try {
-        var type = str.toString();
-        return type === '[object Object]' || type === '[object Array]';
-      } catch (err) {
-        return false;
-      }
-    }
-  }, {
     key: "parseDate",
     value: function parseDate(str) {
-      if (isNaN(str)) {
-        return new Date(str);
-      }
-
-      return new Date(+str);
+      return new Date(str);
     }
     /**
     * Converts a value to the specified type.

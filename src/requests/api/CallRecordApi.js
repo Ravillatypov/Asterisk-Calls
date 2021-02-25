@@ -45,6 +45,7 @@ var CallRecordApi = /*#__PURE__*/function () {
 
   /**
    * Get call record file as mp3
+   * @param {module:model/null} UNKNOWN_PARAMETER_NAME 
    * @param {module:api/CallRecordApi~apiV1RecordGetCallback} callback The callback function, accepting three arguments: error, data, response
    * data is of type: {@link String}
    */
@@ -52,10 +53,17 @@ var CallRecordApi = /*#__PURE__*/function () {
 
   _createClass(CallRecordApi, [{
     key: "apiV1RecordGet",
-    value: function apiV1RecordGet(callback) {
-      var postBody = null;
+    value: function apiV1RecordGet(UNKNOWN_PARAMETER_NAME, callback) {
+      var postBody = null; // verify the required parameter 'UNKNOWN_PARAMETER_NAME' is set
+
+      if (UNKNOWN_PARAMETER_NAME === undefined || UNKNOWN_PARAMETER_NAME === null) {
+        throw new Error("Missing the required parameter 'UNKNOWN_PARAMETER_NAME' when calling apiV1RecordGet");
+      }
+
       var pathParams = {};
-      var queryParams = {};
+      var queryParams = {
+        'call_id': UNKNOWN_PARAMETER_NAME
+      };
       var headerParams = {};
       var formParams = {};
       var authNames = ['jwt'];

@@ -72,6 +72,10 @@ var RequestUser = /*#__PURE__*/function () {
         if (data.hasOwnProperty('permissions')) {
           obj['permissions'] = _ApiClient["default"].convertToType(data['permissions'], ['Number']);
         }
+
+        if (data.hasOwnProperty('password')) {
+          obj['password'] = _ApiClient["default"].convertToType(data['password'], 'String');
+        }
       }
 
       return obj;
@@ -96,5 +100,10 @@ RequestUser.prototype['is_active'] = undefined;
  */
 
 RequestUser.prototype['permissions'] = undefined;
+/**
+ * @member {String} password
+ */
+
+RequestUser.prototype['password'] = undefined;
 var _default = RequestUser;
 exports["default"] = _default;

@@ -119,10 +119,10 @@ RequestGetCalls.prototype['started_to'] = undefined;
 RequestGetCalls.prototype['call_type'] = undefined;
 /**
  * @member {Number} limit
- * @default 10000
+ * @default 1000
  */
 
-RequestGetCalls.prototype['limit'] = 10000;
+RequestGetCalls.prototype['limit'] = 1000;
 /**
  * @member {Number} offset
  * @default 0

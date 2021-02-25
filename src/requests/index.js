@@ -93,6 +93,12 @@ Object.defineProperty(exports, "RequestUser", {
     return _RequestUser["default"];
   }
 });
+Object.defineProperty(exports, "ResponseAtsInfo", {
+  enumerable: true,
+  get: function get() {
+    return _ResponseAtsInfo["default"];
+  }
+});
 Object.defineProperty(exports, "ResponseCall", {
   enumerable: true,
   get: function get() {
@@ -189,6 +195,12 @@ Object.defineProperty(exports, "PermissionsApi", {
     return _PermissionsApi["default"];
   }
 });
+Object.defineProperty(exports, "SystemApi", {
+  enumerable: true,
+  get: function get() {
+    return _SystemApi["default"];
+  }
+});
 Object.defineProperty(exports, "TagsApi", {
   enumerable: true,
   get: function get() {
@@ -232,6 +244,8 @@ var _RequestUpdateUser = _interopRequireDefault(require("./model/RequestUpdateUs
 
 var _RequestUser = _interopRequireDefault(require("./model/RequestUser"));
 
+var _ResponseAtsInfo = _interopRequireDefault(require("./model/ResponseAtsInfo"));
+
 var _ResponseCall = _interopRequireDefault(require("./model/ResponseCall"));
 
 var _ResponseCallsList = _interopRequireDefault(require("./model/ResponseCallsList"));
@@ -263,6 +277,8 @@ var _CallApi = _interopRequireDefault(require("./api/CallApi"));
 var _CallRecordApi = _interopRequireDefault(require("./api/CallRecordApi"));
 
 var _PermissionsApi = _interopRequireDefault(require("./api/PermissionsApi"));
+
+var _SystemApi = _interopRequireDefault(require("./api/SystemApi"));
 
 var _TagsApi = _interopRequireDefault(require("./api/TagsApi"));
 

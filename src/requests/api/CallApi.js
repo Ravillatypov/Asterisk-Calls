@@ -34,7 +34,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 */
 var CallApi = /*#__PURE__*/function () {
   /**
-  * Constructs a new CallApi. 
+  * Constructs a new CallApi.
   * @alias module:api/CallApi
   * @class
   * @param {module:ApiClient} [apiClient] Optional API client implementation to use,
@@ -56,12 +56,12 @@ var CallApi = /*#__PURE__*/function () {
   /**
    * Get list of calls
    * @param {Object} opts Optional parameters
-   * @param {module:model/String} opts.state 
-   * @param {Boolean} opts.needRecall 
-   * @param {Date} opts.startedFrom 
-   * @param {Date} opts.startedTo 
-   * @param {module:model/String} opts.callType 
-   * @param {Number} opts.limit  (default to 10000)
+   * @param {module:model/String} opts.state
+   * @param {Boolean} opts.needRecall
+   * @param {Date} opts.startedFrom
+   * @param {Date} opts.startedTo
+   * @param {module:model/String} opts.callType
+   * @param {Number} opts.limit  (default to 1000)
    * @param {Number} opts.offset  (default to 0)
    * @param {module:api/CallApi~apiV1CallsGetCallback} callback The callback function, accepting three arguments: error, data, response
    * data is of type: {@link module:model/ResponseCallsList}
@@ -81,6 +81,7 @@ var CallApi = /*#__PURE__*/function () {
         'started_to': opts['startedTo'],
         'call_type': opts['callType'],
         'limit': opts['limit'],
+        'number': opts['number'],
         'offset': opts['offset']
       };
       var headerParams = {};
@@ -102,7 +103,7 @@ var CallApi = /*#__PURE__*/function () {
     /**
      * Callback
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestCallback} opts.requestCallback 
+     * @param {module:model/RequestCallback} opts.requestCallback
      * @param {module:api/CallApi~apiV1CallsPostCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/InlineResponse200}
      */
@@ -133,7 +134,7 @@ var CallApi = /*#__PURE__*/function () {
     /**
      * Update call info
      * @param {Object} opts Optional parameters
-     * @param {module:model/RequestCallEdit} opts.requestCallEdit 
+     * @param {module:model/RequestCallEdit} opts.requestCallEdit
      * @param {module:api/CallApi~apiV1CallsPutCallback} callback The callback function, accepting three arguments: error, data, response
      * data is of type: {@link module:model/ResponseSuccess}
      */
